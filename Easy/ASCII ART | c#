@@ -1,0 +1,83 @@
+using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Solution
+{
+    static void Main(string[] args)
+    {
+        int L = int.Parse(Console.ReadLine());
+        int H = int.Parse(Console.ReadLine());
+        string T = Console.ReadLine();
+        char[] inputText = T.ToCharArray();
+        var asciiLetters = new List<string>();
+        
+
+        for (int i = 0; i < H; i++)
+        {
+            string ROW = Console.ReadLine();
+            int rowPlaceHolder = 0;
+            for (int j=0; j < ROW.Length/L; j++)
+            {
+               
+                if (i == 0)
+                {
+                    asciiLetters.Add(ROW.Substring(rowPlaceHolder, L));
+                }
+                else
+                {
+                    asciiLetters[j] += ROW.Substring(rowPlaceHolder, L);
+                }
+                
+                    rowPlaceHolder += L;                
+            }
+            
+        }
+        string[] linePrintoutForConsole = new string[H];
+        var asciiStringReconstructor = new List<string>();
+        for (int i = 0; i < inputText.Length; i++)
+        {
+            int asciiNum = (int)inputText[i];
+           
+            if (asciiNum >= 65 && asciiNum <= 90)
+            {
+                asciiNum -= 65;
+            }
+            else if(asciiNum >= 97 && asciiNum <= 122)
+            {
+                asciiNum -= 97;
+            }
+            else
+            {
+                asciiNum = asciiLetters.Count - 1;
+            }
+
+            asciiStringReconstructor.Add(asciiLetters[asciiNum]);  
+        }
+        int outputlineNumber = 0 ;
+        for (int i = 0; i < H; i++)   
+        {
+            
+            for (int j = 0; j < asciiStringReconstructor.Count; j++)
+            {
+
+                linePrintoutForConsole[i] += asciiStringReconstructor[j].Substring(outputlineNumber, L);
+                
+            }
+            outputlineNumber += L;
+            Console.WriteLine("{0}", linePrintoutForConsole[i]);
+
+        }
+        // Write an action using Console.WriteLine()
+        // To debug: Console.Error.WriteLine("Debug messages...");
+
+        
+    }
+}
